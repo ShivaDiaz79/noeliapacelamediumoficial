@@ -1,4 +1,3 @@
-// src/components/DisponibilidadVuelos.tsx
 import { FC } from "react";
 import { motion } from "framer-motion";
 
@@ -10,6 +9,7 @@ const DisponibilidadVuelos: FC = () => {
         src="https://www.vuelosbaratos.es/"
         title="Disponibilidad de Vuelos"
         className="w-full h-80 rounded"
+        scrolling="no" // Previene el desplazamiento dentro del iframe
         whileHover={{ scale: 1.02 }}
       ></motion.iframe>
     </motion.div>

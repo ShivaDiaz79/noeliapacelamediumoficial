@@ -1,20 +1,19 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-interface BannerVideoProps {
-  videoSrc: string;
-  images: string[];
-  title: string;
-  description: string;
-}
+const Banner: FC = () => {
+  const videoSrc = "/image/noelia1.mp4";
+  const images = ["/image/noelia5.jpg", "/image/noelia6.jpg", "/image/noelia7.jpg", "/image/noelia8.jpg"];
+  const title = "NOELIA PACE LA MEDIUM DE LATINOAMERICA";
+  const description = "En un mundo cada vez más conectado, nos encontramos con una propuesta especial en la que se fusiona la magia del teatro con el misterio del más allá. Estamos hablando de un evento que promete emociones intensas y encuentros inolvidables: el show en vivo de Noelia Pace, una reconocida médium capaz de conectar con los seres que se encuentran en el otro plano.";
 
-const BannerVideo: FC<BannerVideoProps> = ({ videoSrc, images, title, description }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true); // Estado para manejar el sonido
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.play().catch(error => {
+      videoRef.current.play().catch((error) => {
         console.error("Reproducción automática bloqueada", error);
       });
     }
@@ -25,23 +24,31 @@ const BannerVideo: FC<BannerVideoProps> = ({ videoSrc, images, title, descriptio
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
   };
 
+  const handleToggleSound = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted; // Alternar el estado del sonido
+      setIsMuted(!isMuted); // Actualizar el estado
+    }
+  };
+
   return (
     <div className="relative w-full h-screen overflow-hidden">
       <video
         ref={videoRef}
         className="absolute top-0 left-0 w-full h-full object-cover"
-        src={videoSrc} // Video dinámico
-        autoPlay
+        src={videoSrc}
         loop
-        muted
         controls
+        autoPlay
+        playsInline
+        muted={isMuted} // Control de sonido
       >
         <source src={videoSrc} type="video/mp4" />
         Tu navegador no soporta el elemento de video.
       </video>
       <div className="relative flex flex-col items-start justify-end h-full p-6 md:p-12 lg:p-16 bg-black bg-opacity-50">
         <motion.div initial="hidden" animate="visible" variants={bannerVariants}>
-          <h1 className="text-4xl font-bold mb-2 text-white">{title}</h1>
+          <h1 className="text-4xl font-bold mb-2 text-red-800 text-center opacity-90 bg-white/20 text-shadow-white">{title}</h1>
           <p className="text-lg text-white">{description}</p>
         </motion.div>
         <motion.div className="flex space-x-4 mt-6">
@@ -56,9 +63,17 @@ const BannerVideo: FC<BannerVideoProps> = ({ videoSrc, images, title, descriptio
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Botón para activar el sonido */}
+        <button
+          onClick={handleToggleSound}
+          className="absolute bottom-10 right-10 bg-white text-black py-2 px-4 rounded-full"
+        >
+          {isMuted ? "Activar sonido" : "Silenciar sonido"}
+        </button>
       </div>
     </div>
   );
 };
 
-export default BannerVideo;
+export default Banner;

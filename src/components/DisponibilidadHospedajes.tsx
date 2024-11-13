@@ -1,4 +1,3 @@
-// src/components/DisponibilidadHospedajes.tsx
 import { FC } from "react";
 import { motion } from "framer-motion";
 
@@ -10,6 +9,7 @@ const DisponibilidadHospedajes: FC = () => {
         src="https://www.airbnb.com.bo/santa-cruz-de-la-sierra-bolivia/stays?_set_bev_on_new_domain=1714492355_M2RmMTY0ODFlMjBh"
         title="Disponibilidad de Hospedajes"
         className="w-full h-80 rounded"
+        scrolling="no" // Previene el desplazamiento dentro del iframe
         whileHover={{ scale: 1.02 }}
       ></motion.iframe>
     </motion.div>
@@ -17,3 +17,4 @@ const DisponibilidadHospedajes: FC = () => {
 };
 
 export default DisponibilidadHospedajes;
+

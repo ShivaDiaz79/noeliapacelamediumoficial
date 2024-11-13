@@ -4,18 +4,18 @@ import Image from "next/image";
 
 interface TestimoniosProps {
   headerImage: string;
-  videoPaths: string[];
+  videoPaths: { src: string; poster: string }[];
 }
 
 const Testimonios: FC<TestimoniosProps> = ({ headerImage, videoPaths }) => {
   return (
-    <div className="text-center my-12 p-6 bg-gray-100 rounded-lg">
+    <div className="text-center my-12 p-6 bg-black rounded-lg">
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
         <Image src={headerImage} width={800} height={400} alt="Imagen de encabezado" className="mx-auto mb-6 rounded-lg" />
       </motion.div>
       <h2 className="text-3xl font-bold mb-4">Testimonios</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {videoPaths.map((videoPath, idx) => (
+        {videoPaths.map((video, idx) => (
           <motion.div
             key={idx}
             className="bg-black rounded-lg overflow-hidden relative"
@@ -24,8 +24,8 @@ const Testimonios: FC<TestimoniosProps> = ({ headerImage, videoPaths }) => {
             <video
               className="w-full h-auto"
               controls
-              poster="/path/to/video-poster.jpg"
-              src={videoPath}
+              poster={video.poster} // Miniatura única para cada video
+              src={video.src}
             />
           </motion.div>
         ))}
