@@ -1,21 +1,35 @@
-import type { NextPage } from 'next'
+import { NextPage } from "next";
+import BannerVideo from "@/components/BannerVideo";
+import Testimonios from "@/components/Testimonios";
+import PizarraConEnlaces from "@/components/PizarraConEnlaces";
+import DisponibilidadVuelos from "@/components/DisponibilidadVuelos";
+import DisponibilidadHospedajes from "@/components/DisponibilidadHospedajes";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black">
-      <div className="max-w-md p-8 bg-white rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">
-          ¡Bienvenido a mi proyecto Next.js con TypeScript y Tailwind CSS!
-        </h1>
-        <p className="text-gray-600 text-center">
-          Esta es una página de inicio básica. Puedes comenzar a personalizarla desde aquí.
-        </p>
-        <button className="mt-6 w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200">
-          Comenzar
-        </button>
+    <div className="bg-black">
+      <BannerVideo 
+        videoSrc="/image/noelia1.mp4" // Ruta del video dinámico
+        images={["/image/noelia5.jpg", "/image/noelia6.jpg", "/image/noelia7.jpg","/image/noelia8.jpg"]}
+        title="NOELIA PACE LA MEDIUM DE LATINOAMERICA"
+        description="En un mundo cada vez más conectado, nos encontramos con una propuesta especial en la que se fusiona la magia 
+del teatro con el misterio del más allá. Estamos hablando de un evento que promete emociones intensas y 
+encuentros inolvidables: el show en vivo de Noelia Pace, una reconocida médium capaz de conectar con los seres 
+que se encuentran en el otro plano."
+      />
+      <Testimonios 
+        headerImage="/image/noelia2.jpg" 
+        videoPaths={["/image/testimonio1.mp4", "/image/testimonio2.mp4","/image/testimonio3.mp4","/image/testimonio4.mp4",]}
+      />
+      <PizarraConEnlaces />
+      
+      {/* Contenedor en flex para los dos componentes en la misma fila */}
+      <div className="flex flex-col md:flex-row gap-6 justify-center items-center my-12">
+        <DisponibilidadVuelos />
+        <DisponibilidadHospedajes />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
